@@ -476,7 +476,7 @@ export class RootView extends React.Component<RootViewProps, RootViewState> {
         }
     }
 
-    private _updateKeyboardNavigationState(isNavigatingWithKeyboard: boolean, fireEvent: boolean = true) {
+    private _updateKeyboardNavigationState(isNavigatingWithKeyboard: boolean, internalStateChange: boolean = true) {
         if (this._isNavigatingWithKeyboardUpateTimer) {
             window.clearTimeout(this._isNavigatingWithKeyboardUpateTimer);
             this._isNavigatingWithKeyboardUpateTimer = undefined;
@@ -486,7 +486,7 @@ export class RootView extends React.Component<RootViewProps, RootViewState> {
             this._isNavigatingWithKeyboard = isNavigatingWithKeyboard;
 
             console.log('=-=-=-=- Checking if we need to fire event...');
-            if (fireEvent) {
+            if (internalStateChange) {
                 console.log('    =-=-=-=- We do as it has been fired manually...');
                 UserInterface.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
             } else {
@@ -794,8 +794,13 @@ export class RootView extends React.Component<RootViewProps, RootViewState> {
     }
 
     private _keyboardNavigationStateChanged = (isNavigatingWithKeyboard: boolean) => {
-        console.log('=-=-=-=- Listened to my own event... Updating KBD navigation and do not refire the event.');
-        this._updateKeyboardNavigationState(isNavigatingWithKeyboard, false);
+        console.log('=-=-=-=- Listened to my own event... Need to update?.');
+        if (isNavigatingWithKeyboard !== this._isNavigatingWithKeyboard) {
+            this._updateKeyboardNavigationState(isNavigatingWithKeyboard, false);
+            console.log('=-=-=-=- Updating internal state as event was fired externally.');
+        } else {
+            console.log('=-=-=-=- Not updating internal state as event was fired internally.');
+        }
     }
 }
 

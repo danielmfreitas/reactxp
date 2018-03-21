@@ -178,8 +178,14 @@ var RootView = /** @class */ (function (_super) {
             Input_1.default.dispatchKeyUp(e);
         };
         _this._keyboardNavigationStateChanged = function (isNavigatingWithKeyboard) {
-            console.log('=-=-=-=- Listened to my own event... Updating KBD navigation and do not refire the event.');
-            _this._updateKeyboardNavigationState(isNavigatingWithKeyboard, false);
+            console.log('=-=-=-=- Listened to my own event... Need to update?.');
+            if (isNavigatingWithKeyboard !== _this._isNavigatingWithKeyboard) {
+                _this._updateKeyboardNavigationState(isNavigatingWithKeyboard, false);
+                console.log('=-=-=-=- Updating internal state as event was fired externally.');
+            }
+            else {
+                console.log('=-=-=-=- Not updating internal state as event was fired internally.');
+            }
         };
         // Update announcement text.
         _this._newAnnouncementEventChangedSubscription =
@@ -363,8 +369,8 @@ var RootView = /** @class */ (function (_super) {
         var isClickOnElement = element && !!eventSource && element.contains(eventSource);
         return isClickOnElement;
     };
-    RootView.prototype._updateKeyboardNavigationState = function (isNavigatingWithKeyboard, fireEvent) {
-        if (fireEvent === void 0) { fireEvent = true; }
+    RootView.prototype._updateKeyboardNavigationState = function (isNavigatingWithKeyboard, internalStateChange) {
+        if (internalStateChange === void 0) { internalStateChange = true; }
         if (this._isNavigatingWithKeyboardUpateTimer) {
             window.clearTimeout(this._isNavigatingWithKeyboardUpateTimer);
             this._isNavigatingWithKeyboardUpateTimer = undefined;
@@ -372,7 +378,7 @@ var RootView = /** @class */ (function (_super) {
         if (this._isNavigatingWithKeyboard !== isNavigatingWithKeyboard) {
             this._isNavigatingWithKeyboard = isNavigatingWithKeyboard;
             console.log('=-=-=-=- Checking if we need to fire event...');
-            if (fireEvent) {
+            if (internalStateChange) {
                 console.log('    =-=-=-=- We do as it has been fired manually...');
                 UserInterface_1.default.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
             }

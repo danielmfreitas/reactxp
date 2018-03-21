@@ -61,7 +61,7 @@ export declare class RootView extends React.Component<RootViewProps, RootViewSta
     private _determineIfClickOnElement(elementReference, eventSource);
     private _onMouseDownCapture;
     private _onKeyDownCapture;
-    private _updateKeyboardNavigationState(isNavigatingWithKeyboard, fireEvent?);
+    private _updateKeyboardNavigationState(isNavigatingWithKeyboard, internalStateChange?);
     private _onKeyDown;
     private _onKeyUp;
     private _onMouseEnter(e);
