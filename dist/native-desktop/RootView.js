@@ -107,6 +107,7 @@ function applyDesktopBehaviorMixin(RootViewBase) {
                     this._isNavigatingWithKeyboard = isNavigatingWithKeyboard;
                     UserInterface_1.default.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
                 }
+                console.log('=-=-=-=- Updating KeyboardNavigationState');
             };
             RootView.prototype.getChildContext = function () {
                 // Provide the context with root FocusManager to all descendants.
