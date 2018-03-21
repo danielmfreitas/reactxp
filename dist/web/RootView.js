@@ -146,7 +146,6 @@ var RootView = /** @class */ (function (_super) {
             _this._updateKeyboardNavigationState(false);
         };
         _this._onKeyDownCapture = function (e) {
-            console.log('=-=-=-=- Updating Web _onKeyDownCapture');
             if (e.keyCode === KEY_CODE_TAB) {
                 _this._updateKeyboardNavigationState(true);
             }

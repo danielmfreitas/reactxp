@@ -97,18 +97,14 @@ function applyDesktopBehaviorMixin<TRootViewBase extends Constructor<React.Compo
 
                 UserInterface.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
             }
-
-            console.log('=-=-=-=- Updating KeyboardNavigationState');
         }
 
         _onKeyDown = (e: SyntheticEvent) => {
-            console.log('=-=-=-=- Updating _onKeyDown');
             let kbdEvent = EventHelpers.toKeyboardEvent(e);
             Input.dispatchKeyDown(kbdEvent);
         }
 
         _onKeyUp = (e: SyntheticEvent) => {
-            console.log('=-=-=-=- Updating _onKeyUp');
             let kbdEvent = EventHelpers.toKeyboardEvent(e);
 
             let activePopupId = FrontLayerViewManager.getActivePopupId();

@@ -453,7 +453,6 @@ export class RootView extends React.Component<RootViewProps, RootViewState> {
     }
 
     private _onKeyDownCapture = (e: KeyboardEvent) => {
-        console.log('=-=-=-=- Updating Web _onKeyDownCapture');
         if (e.keyCode === KEY_CODE_TAB) {
             this._updateKeyboardNavigationState(true);
         }

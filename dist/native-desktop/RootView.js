@@ -78,12 +78,10 @@ function applyDesktopBehaviorMixin(RootViewBase) {
                     }
                 };
                 _this._onKeyDown = function (e) {
-                    console.log('=-=-=-=- Updating _onKeyDown');
                     var kbdEvent = EventHelpers_1.default.toKeyboardEvent(e);
                     Input_1.default.dispatchKeyDown(kbdEvent);
                 };
                 _this._onKeyUp = function (e) {
-                    console.log('=-=-=-=- Updating _onKeyUp');
                     var kbdEvent = EventHelpers_1.default.toKeyboardEvent(e);
                     var activePopupId = FrontLayerViewManager_1.default.getActivePopupId();
                     if (activePopupId && (kbdEvent.keyCode === KEY_CODE_ESC)) {
@@ -109,7 +107,6 @@ function applyDesktopBehaviorMixin(RootViewBase) {
                     this._isNavigatingWithKeyboard = isNavigatingWithKeyboard;
                     UserInterface_1.default.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
                 }
-                console.log('=-=-=-=- Updating KeyboardNavigationState');
             };
             RootView.prototype.getChildContext = function () {
                 // Provide the context with root FocusManager to all descendants.
