@@ -180,8 +180,8 @@ var RootView = /** @class */ (function (_super) {
         _this._keyboardNavigationStateChanged = function (isNavigatingWithKeyboard) {
             console.log('=-=-=-=- Listened to my own event... Need to update?.');
             if (isNavigatingWithKeyboard !== _this._isNavigatingWithKeyboard) {
-                _this._updateKeyboardNavigationState(isNavigatingWithKeyboard, false);
                 console.log('=-=-=-=- Updating internal state as event was fired externally.');
+                _this._updateKeyboardNavigationState(isNavigatingWithKeyboard, false);
             }
             else {
                 console.log('=-=-=-=- Not updating internal state as event was fired internally.');

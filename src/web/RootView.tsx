@@ -796,8 +796,8 @@ export class RootView extends React.Component<RootViewProps, RootViewState> {
     private _keyboardNavigationStateChanged = (isNavigatingWithKeyboard: boolean) => {
         console.log('=-=-=-=- Listened to my own event... Need to update?.');
         if (isNavigatingWithKeyboard !== this._isNavigatingWithKeyboard) {
-            this._updateKeyboardNavigationState(isNavigatingWithKeyboard, false);
             console.log('=-=-=-=- Updating internal state as event was fired externally.');
+            this._updateKeyboardNavigationState(isNavigatingWithKeyboard, false);
         } else {
             console.log('=-=-=-=- Not updating internal state as event was fired internally.');
         }
