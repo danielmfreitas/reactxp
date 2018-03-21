@@ -491,7 +491,7 @@ export class RootView extends React.Component<RootViewProps, RootViewState> {
                 console.log('    =-=-=-=- We do as it has been fired manually...');
                 UserInterface.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
             } else {
-                console.log('    =-=-=-=- No need to fire it again...');
+                console.log('    =-=-=-=- No need to fire it again as it was called programatically...');
             }
 
             const focusClass = isNavigatingWithKeyboard ? this.props.keyBoardFocusOutline : this.props.mouseFocusOutline;

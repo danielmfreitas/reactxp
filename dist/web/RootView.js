@@ -378,7 +378,7 @@ var RootView = /** @class */ (function (_super) {
                 UserInterface_1.default.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
             }
             else {
-                console.log('    =-=-=-=- No need to fire it again...');
+                console.log('    =-=-=-=- No need to fire it again as it was called programatically...');
             }
             var focusClass = isNavigatingWithKeyboard ? this.props.keyBoardFocusOutline : this.props.mouseFocusOutline;
             if (this.state.focusClass !== focusClass) {
