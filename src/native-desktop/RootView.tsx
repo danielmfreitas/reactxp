@@ -97,6 +97,8 @@ function applyDesktopBehaviorMixin<TRootViewBase extends Constructor<React.Compo
 
                 UserInterface.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
             }
+
+            console.log('=-=-=-=- Updating KeyboardNavigationState');
         }
 
         _onKeyDown = (e: SyntheticEvent) => {
