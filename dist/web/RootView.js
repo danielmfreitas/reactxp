@@ -146,6 +146,7 @@ var RootView = /** @class */ (function (_super) {
             _this._updateKeyboardNavigationState(false);
         };
         _this._onKeyDownCapture = function (e) {
+            console.log('=-=-=-=- Updating Web _onKeyDownCapture');
             if (e.keyCode === KEY_CODE_TAB) {
                 _this._updateKeyboardNavigationState(true);
             }
@@ -358,6 +359,7 @@ var RootView = /** @class */ (function (_super) {
         return isClickOnElement;
     };
     RootView.prototype._updateKeyboardNavigationState = function (isNavigatingWithKeyboard) {
+        console.log('=-=-=-=- Updating Web _updateKeyboardNavigationState');
         if (this._isNavigatingWithKeyboardUpateTimer) {
             window.clearTimeout(this._isNavigatingWithKeyboardUpateTimer);
             this._isNavigatingWithKeyboardUpateTimer = undefined;
