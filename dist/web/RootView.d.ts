@@ -61,7 +61,7 @@ export declare class RootView extends React.Component<RootViewProps, RootViewSta
     private _determineIfClickOnElement(elementReference, eventSource);
     private _onMouseDownCapture;
     private _onKeyDownCapture;
-    private _updateKeyboardNavigationState(isNavigatingWithKeyboard);
+    private _updateKeyboardNavigationState(isNavigatingWithKeyboard, fireEvent?);
     private _onKeyDown;
     private _onKeyUp;
     private _onMouseEnter(e);
@@ -73,5 +73,6 @@ export declare class RootView extends React.Component<RootViewProps, RootViewSta
     private _stopRepositionPopupTimer();
     private _recalcPosition();
     private _recalcInnerPosition(anchorRect, newState);
+    private _keyboardNavigationStateChanged;
 }
 export default RootView;

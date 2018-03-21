@@ -254,6 +254,8 @@ export class RootView extends React.Component<RootViewProps, RootViewState> {
 
             this._keyboardHandlerInstalled = true;
         }
+
+        UserInterface.keyboardNavigationEvent.subscribe(this._keyboardNavigationStateChanged);
     }
 
     componentWillUnmount() {
@@ -274,6 +276,8 @@ export class RootView extends React.Component<RootViewProps, RootViewState> {
 
             this._keyboardHandlerInstalled = false;
         }
+
+        UserInterface.keyboardNavigationEvent.unsubscribe(this._keyboardNavigationStateChanged);
     }
 
     private _renderPopup(popup: PopupDescriptor, hidden: boolean): JSX.Element {
@@ -473,8 +477,7 @@ export class RootView extends React.Component<RootViewProps, RootViewState> {
         }
     }
 
-    private _updateKeyboardNavigationState(isNavigatingWithKeyboard: boolean) {
-        console.log('=-=-=-=- Updating Web _updateKeyboardNavigationState');
+    private _updateKeyboardNavigationState(isNavigatingWithKeyboard: boolean, fireEvent: boolean = true) {
         if (this._isNavigatingWithKeyboardUpateTimer) {
             window.clearTimeout(this._isNavigatingWithKeyboardUpateTimer);
             this._isNavigatingWithKeyboardUpateTimer = undefined;
@@ -483,7 +486,13 @@ export class RootView extends React.Component<RootViewProps, RootViewState> {
         if (this._isNavigatingWithKeyboard !== isNavigatingWithKeyboard) {
             this._isNavigatingWithKeyboard = isNavigatingWithKeyboard;
 
-            UserInterface.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
+            console.log('=-=-=-=- Checking if we need to fire event...');
+            if (fireEvent) {
+                console.log('    =-=-=-=- We do as it has been fired manually...');
+                UserInterface.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
+            } else {
+                console.log('    =-=-=-=- No need to fire it again...');
+            }
 
             const focusClass = isNavigatingWithKeyboard ? this.props.keyBoardFocusOutline : this.props.mouseFocusOutline;
 
@@ -783,6 +792,11 @@ export class RootView extends React.Component<RootViewProps, RootViewState> {
         if (!_.isEqual(newState, this.state)) {
             this.setState(newState);
         }
+    }
+
+    private _keyboardNavigationStateChanged = (isNavigatingWithKeyboard: boolean) => {
+        console.log('=-=-=-=- Listened to my own event... Updating KBD navigation and do not refire the event.');
+        this._updateKeyboardNavigationState(isNavigatingWithKeyboard, false);
     }
 }
 

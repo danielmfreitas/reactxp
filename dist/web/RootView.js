@@ -178,6 +178,10 @@ var RootView = /** @class */ (function (_super) {
             }
             Input_1.default.dispatchKeyUp(e);
         };
+        _this._keyboardNavigationStateChanged = function (isNavigatingWithKeyboard) {
+            console.log('=-=-=-=- Listened to my own event... Updating KBD navigation and do not refire the event.');
+            _this._updateKeyboardNavigationState(isNavigatingWithKeyboard, false);
+        };
         // Update announcement text.
         _this._newAnnouncementEventChangedSubscription =
             Accessibility_1.default.newAnnouncementReadyEvent.subscribe(function (announcement) {
@@ -282,6 +286,7 @@ var RootView = /** @class */ (function (_super) {
             window.addEventListener('mousedown', this._onMouseDownCapture, true); // Capture!
             this._keyboardHandlerInstalled = true;
         }
+        UserInterface_1.default.keyboardNavigationEvent.subscribe(this._keyboardNavigationStateChanged);
     };
     RootView.prototype.componentWillUnmount = function () {
         this._stopHidePopupTimer();
@@ -297,6 +302,7 @@ var RootView = /** @class */ (function (_super) {
             window.removeEventListener('mousedown', this._onMouseDownCapture, true);
             this._keyboardHandlerInstalled = false;
         }
+        UserInterface_1.default.keyboardNavigationEvent.unsubscribe(this._keyboardNavigationStateChanged);
     };
     RootView.prototype._renderPopup = function (popup, hidden) {
         var _this = this;
@@ -358,15 +364,22 @@ var RootView = /** @class */ (function (_super) {
         var isClickOnElement = element && !!eventSource && element.contains(eventSource);
         return isClickOnElement;
     };
-    RootView.prototype._updateKeyboardNavigationState = function (isNavigatingWithKeyboard) {
-        console.log('=-=-=-=- Updating Web _updateKeyboardNavigationState');
+    RootView.prototype._updateKeyboardNavigationState = function (isNavigatingWithKeyboard, fireEvent) {
+        if (fireEvent === void 0) { fireEvent = true; }
         if (this._isNavigatingWithKeyboardUpateTimer) {
             window.clearTimeout(this._isNavigatingWithKeyboardUpateTimer);
             this._isNavigatingWithKeyboardUpateTimer = undefined;
         }
         if (this._isNavigatingWithKeyboard !== isNavigatingWithKeyboard) {
             this._isNavigatingWithKeyboard = isNavigatingWithKeyboard;
-            UserInterface_1.default.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
+            console.log('=-=-=-=- Checking if we need to fire event...');
+            if (fireEvent) {
+                console.log('    =-=-=-=- We do as it has been fired manually...');
+                UserInterface_1.default.keyboardNavigationEvent.fire(isNavigatingWithKeyboard);
+            }
+            else {
+                console.log('    =-=-=-=- No need to fire it again...');
+            }
             var focusClass = isNavigatingWithKeyboard ? this.props.keyBoardFocusOutline : this.props.mouseFocusOutline;
             if (this.state.focusClass !== focusClass) {
                 this.setState({ focusClass: focusClass });
